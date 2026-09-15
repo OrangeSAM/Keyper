@@ -8,7 +8,7 @@ class AudioEngine {
     private var players: [AudioPlayer] = []
     private var buffers: [AVAudioPCMBuffer] = []
     private var currentPlayerIndex = 0
-    private let playerCount = 6  // 6 players for rich polyphony and fast typing
+    private let playerCount = 2  // Exactly matching original Tickeys SimpleAudioPlayer::new(2)
     private let lock = NSLock()
 
     /// Universal standard audio format used across all internal nodes and buffers

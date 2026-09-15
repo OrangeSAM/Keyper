@@ -38,6 +38,10 @@ class KeyperEngine: ObservableObject {
     /// Callback when secret sequence is detected
     var onOpenSettings: (() -> Void)?
 
+    // Debounce state matching original Tickeys is_too_frequent (120ms threshold for same key)
+    private var lastTimeMs: UInt64 = 0
+    private var lastKeycode: Int64 = -1
+
     init() {
         loadPreferences()
         setupCallbacks()
@@ -118,10 +122,28 @@ class KeyperEngine: ObservableObject {
             return
         }
 
+        // Check 120ms debounce for same key (matching original Tickeys is_too_frequent)
+        if isTooFrequent(keyCode: keyCode) {
+            return
+        }
+
         // Play sound
         guard let scheme = schemeManager.currentScheme else { return }
         let audioIndex = scheme.audioIndex(forKeyCode: Int(keyCode))
         audioEngine.play(bufferIndex: audioIndex)
+    }
+
+    /// Suppress repeated sound when the same key is tapped within 120ms (1:1 with original Tickeys is_too_frequent)
+    private func isTooFrequent(keyCode: Int64) -> Bool {
+        let nowMs = DispatchTime.now().uptimeNanoseconds / 1_000_000
+        let delta = nowMs >= lastTimeMs ? (nowMs - lastTimeMs) : 0
+        if delta < 120 && lastKeycode == keyCode {
+            lastTimeMs = nowMs
+            return true
+        }
+        lastKeycode = keyCode
+        lastTimeMs = nowMs
+        return false
     }
 
     /// Detect the secret key sequence QAZ123 to open settings

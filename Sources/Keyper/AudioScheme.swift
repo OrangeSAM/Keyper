@@ -18,13 +18,13 @@ struct AudioScheme: Codable {
 
     /// Get the audio file index for a given keyCode
     /// - Special keys (Enter, Space, etc.) use key_audio_map
-    /// - Other keys pick a random index within non_unique_count for realistic typing sounds
+    /// - Other keys map deterministically using keyCode % non_unique_count (1:1 with original Tickeys)
     func audioIndex(forKeyCode keyCode: Int) -> Int {
         let keyStr = String(keyCode)
         if let mappedIndex = keyAudioMap[keyStr] {
             return mappedIndex
         }
         guard nonUniqueCount > 0 else { return 0 }
-        return Int.random(in: 0..<nonUniqueCount)
+        return abs(keyCode) % nonUniqueCount
     }
 }
