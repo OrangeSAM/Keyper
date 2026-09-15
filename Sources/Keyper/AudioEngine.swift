@@ -28,18 +28,16 @@ class AudioEngine {
         didSet {
             lock.lock()
             defer { lock.unlock() }
-            // pitch = 1.0 means normal, 0.5 = half speed, 2.0 = double speed
-            // AVAudioUnitTimePitch uses cents: 0 = normal, +1200 = octave up, -1200 = octave down
-            let cents: Float = 1200.0 * log2(max(0.2, pitch))
+            let rate = max(0.25, min(4.0, pitch))
             for p in players {
-                p.pitchUnit.pitch = cents
+                p.varispeed.rate = rate
             }
         }
     }
 
     private struct AudioPlayer {
         let node: AVAudioPlayerNode
-        let pitchUnit: AVAudioUnitTimePitch
+        let varispeed: AVAudioUnitVarispeed
     }
 
     init() {
@@ -49,17 +47,17 @@ class AudioEngine {
     private func setupEngine() {
         for _ in 0..<playerCount {
             let node = AVAudioPlayerNode()
-            let pitchUnit = AVAudioUnitTimePitch()
-            pitchUnit.pitch = 0  // No pitch shift by default
+            let varispeed = AVAudioUnitVarispeed()
+            varispeed.rate = pitch
 
             engine.attach(node)
-            engine.attach(pitchUnit)
+            engine.attach(varispeed)
 
             // Connect using the exact standardFormat to guarantee compatibility with all scheduled buffers
-            engine.connect(node, to: pitchUnit, format: standardFormat)
-            engine.connect(pitchUnit, to: engine.mainMixerNode, format: standardFormat)
+            engine.connect(node, to: varispeed, format: standardFormat)
+            engine.connect(varispeed, to: engine.mainMixerNode, format: standardFormat)
 
-            players.append(AudioPlayer(node: node, pitchUnit: pitchUnit))
+            players.append(AudioPlayer(node: node, varispeed: varispeed))
         }
 
         do {
@@ -173,11 +171,9 @@ class AudioEngine {
         let player = players[currentPlayerIndex % playerCount]
 
         player.node.volume = volume
-        player.node.scheduleBuffer(buffer, at: nil, options: .interrupts, completionHandler: nil)
-
-        if !player.node.isPlaying {
-            player.node.play()
-        }
+        player.node.stop()
+        player.node.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
+        player.node.play()
 
         currentPlayerIndex = (currentPlayerIndex + 1) % playerCount
     }
