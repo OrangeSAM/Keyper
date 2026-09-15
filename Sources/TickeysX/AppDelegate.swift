@@ -121,13 +121,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let hostingController = NSHostingController(rootView: settingsView)
 
         let window = NSWindow(contentViewController: hostingController)
-        window.title = "TickeysX 设置"
-        window.styleMask = [.titled, .closable, .miniaturizable]
-        window.setContentSize(NSSize(width: 420, height: 530))
+        window.title = "TickeysX"
+        window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
+        window.titlebarAppearsTransparent = true
+        window.titleVisibility = .hidden
+        window.setContentSize(NSSize(width: 530, height: 600))
         window.center()
         window.isReleasedWhenClosed = false
         window.delegate = self
         window.level = .floating
+        window.isMovableByWindowBackground = true
 
         self.settingsWindow = window
         window.makeKeyAndOrderFront(nil)

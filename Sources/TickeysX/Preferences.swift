@@ -1,6 +1,7 @@
 import Foundation
+import ServiceManagement
 
-/// Manages user preferences using UserDefaults
+/// Manages user preferences using UserDefaults and ServiceManagement
 class Preferences {
     static let shared = Preferences()
 
@@ -13,6 +14,7 @@ class Preferences {
         static let filterMode = "tickeys_filter_mode"
         static let filterList = "tickeys_filter_list"
         static let prefExists = "tickeys_pref_exists"
+        static let launchAtLogin = "tickeys_launch_at_login"
     }
 
     var schemeName: String? {
@@ -55,6 +57,29 @@ class Preferences {
     var filterBundleIds: [String] {
         get { defaults.stringArray(forKey: Keys.filterList) ?? [] }
         set { defaults.set(newValue, forKey: Keys.filterList) }
+    }
+
+    var launchAtLogin: Bool {
+        get {
+            if #available(macOS 13.0, *) {
+                return SMAppService.mainApp.status == .enabled
+            }
+            return defaults.bool(forKey: Keys.launchAtLogin)
+        }
+        set {
+            if #available(macOS 13.0, *) {
+                do {
+                    if newValue {
+                        try SMAppService.mainApp.register()
+                    } else {
+                        try SMAppService.mainApp.unregister()
+                    }
+                } catch {
+                    print("[Preferences] Failed to update launchAtLogin: \(error)")
+                }
+            }
+            defaults.set(newValue, forKey: Keys.launchAtLogin)
+        }
     }
 
     private init() {}

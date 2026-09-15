@@ -11,6 +11,13 @@ class FilterList: ObservableObject {
         case whiteList = 1
     }
 
+    struct AppInfo: Identifiable {
+        var id: String { bundleId }
+        let name: String
+        let bundleId: String
+        let icon: NSImage
+    }
+
     @Published var mode: Mode {
         didSet { Preferences.shared.filterMode = mode.rawValue }
     }
@@ -53,9 +60,8 @@ class FilterList: ObservableObject {
     }
 
     /// Remove an app's bundle identifier from the filter list
-    func removeApp(at index: Int) {
-        guard index >= 0, index < bundleIds.count else { return }
-        bundleIds.remove(at: index)
+    func removeApp(bundleId: String) {
+        bundleIds.removeAll { $0 == bundleId }
     }
 
     /// Get display name for a bundle identifier
@@ -66,15 +72,24 @@ class FilterList: ObservableObject {
         return bundleId
     }
 
+    /// Get icon for a bundle identifier
+    static func appIcon(for bundleId: String) -> NSImage {
+        if let url = NSWorkspace.shared.urlForApplication(withBundleIdentifier: bundleId) {
+            return NSWorkspace.shared.icon(forFile: url.path)
+        }
+        return NSWorkspace.shared.icon(for: .application)
+    }
+
     /// Get list of running applications (for adding to filter)
-    static func runningApps() -> [(name: String, bundleId: String)] {
+    static func runningApps() -> [AppInfo] {
         return NSWorkspace.shared.runningApplications
             .filter { $0.activationPolicy == .regular }
-            .compactMap { app -> (String, String)? in
+            .compactMap { app -> AppInfo? in
                 guard let bundleId = app.bundleIdentifier,
                       let name = app.localizedName else { return nil }
-                return (name, bundleId)
+                let icon = app.icon ?? NSWorkspace.shared.icon(for: .application)
+                return AppInfo(name: name, bundleId: bundleId, icon: icon)
             }
-            .sorted { $0.0 < $1.0 }
+            .sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending }
     }
 }
