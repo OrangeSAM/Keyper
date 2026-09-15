@@ -1,8 +1,7 @@
 import Foundation
 
 /// Core engine that connects keyboard monitoring to audio playback
-/// Equivalent to the original Tickeys struct in tickeys.rs
-class TickeysEngine: ObservableObject {
+class KeyperEngine: ObservableObject {
     let keyboardMonitor = KeyboardMonitor()
     let audioEngine = AudioEngine()
     let schemeManager = SchemeManager()
@@ -86,7 +85,7 @@ class TickeysEngine: ObservableObject {
 
         keyboardMonitor.start()
         isRunning = true
-        print("[TickeysEngine] Started")
+        print("[KeyperEngine] Started")
     }
 
     /// Stop the engine
@@ -94,7 +93,7 @@ class TickeysEngine: ObservableObject {
         keyboardMonitor.stop()
         audioEngine.stopAll()
         isRunning = false
-        print("[TickeysEngine] Stopped")
+        print("[KeyperEngine] Stopped")
     }
 
     /// Switch to a different audio scheme
@@ -134,7 +133,7 @@ class TickeysEngine: ObservableObject {
 
         if recentKeys.count == maxRecentKeys {
             if recentKeys == secretSequence || recentKeys == secretSequenceNumpad {
-                print("[TickeysEngine] Secret sequence detected! Opening settings...")
+                print("[KeyperEngine] Secret sequence detected! Opening settings...")
                 recentKeys.removeAll()
                 DispatchQueue.main.async { [weak self] in
                     self?.onOpenSettings?()
@@ -145,7 +144,7 @@ class TickeysEngine: ObservableObject {
 
     /// Restart after system wake
     func handleSystemWake() {
-        print("[TickeysEngine] System wake - restarting audio engine")
+        print("[KeyperEngine] System wake - restarting audio engine")
         audioEngine.restart()
     }
 }

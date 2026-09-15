@@ -2,17 +2,17 @@ import Cocoa
 import SwiftUI
 
 /// Main application delegate
-/// Manages status bar, system events, and the TickeysX engine
+/// Manages status bar, system events, and the Keyper engine
 class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     var statusItem: NSStatusItem!
-    var engine: TickeysEngine!
+    var engine: KeyperEngine!
     var settingsWindow: NSWindow?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        print("[TickeysX] Application starting...")
+        print("[Keyper] Application starting...")
 
         // Initialize engine
-        engine = TickeysEngine()
+        engine = KeyperEngine()
         engine.onOpenSettings = { [weak self] in
             self?.openSettings()
         }
@@ -33,12 +33,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             }
         }
 
-        print("[TickeysX] Application started. Type QAZ123 to open settings.")
+        print("[Keyper] Application started. Type QAZ123 to open settings.")
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         engine.stop()
-        print("[TickeysX] Application terminated")
+        print("[Keyper] Application terminated")
     }
 
     // MARK: - Status Bar
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
         if let button = statusItem.button {
-            button.image = NSImage(systemSymbolName: "keyboard", accessibilityDescription: "TickeysX")
+            button.image = NSImage(systemSymbolName: "keyboard", accessibilityDescription: "Keyper")
             button.image?.size = NSSize(width: 18, height: 18)
         }
 
@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
 
-        let titleItem = NSMenuItem(title: "⌨️ TickeysX", action: nil, keyEquivalent: "")
+        let titleItem = NSMenuItem(title: "⌨️ Keyper", action: nil, keyEquivalent: "")
         titleItem.isEnabled = false
         menu.addItem(titleItem)
 
@@ -87,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
         menu.addItem(NSMenuItem.separator())
 
-        let quitItem = NSMenuItem(title: "退出 TickeysX", action: #selector(quitApp), keyEquivalent: "q")
+        let quitItem = NSMenuItem(title: "退出 Keyper", action: #selector(quitApp), keyEquivalent: "q")
         quitItem.target = self
         menu.addItem(quitItem)
     }
@@ -121,7 +121,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let hostingController = NSHostingController(rootView: settingsView)
 
         let window = NSWindow(contentViewController: hostingController)
-        window.title = "TickeysX"
+        window.title = "Keyper"
         window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
@@ -147,14 +147,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         KeyboardMonitor.openAccessibilitySettings()
 
         let alert = NSAlert()
-        alert.messageText = "TickeysX 需要「辅助功能」权限"
+        alert.messageText = "Keyper 需要「辅助功能」权限"
         alert.informativeText = """
-        TickeysX 需要辅助功能权限才能监听键盘输入并即时播放音效。
+        Keyper 需要辅助功能权限才能监听键盘输入并即时播放音效。
 
         【已自动打开系统设置】：
-        1. 请在「隐私与安全性 → 辅助功能」列表中找到「TickeysX」
-        2. 打开其右侧的开关允许权限（若不在列表中，可点击下方「+」号添加 TickeysX.app）
-        3. 开启后无需重启应用，TickeysX 会立即自动开始发声！
+        1. 请在「隐私与安全性 → 辅助功能」列表中找到「Keyper」
+        2. 打开其右侧的开关允许权限（若不在列表中，可点击下方「+」号添加 Keyper.app）
+        3. 开启后无需重启应用，Keyper 会立即自动开始发声！
         """
         alert.alertStyle = .warning
         alert.addButton(withTitle: "重新打开设置")

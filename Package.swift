@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "TickeysX",
+    name: "Keyper",
     platforms: [.macOS(.v13)],
     targets: [
         .executableTarget(
-            name: "TickeysX",
+            name: "Keyper",
             resources: [
                 .copy("Resources/data")
             ],

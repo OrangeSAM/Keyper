@@ -8,13 +8,13 @@ class Preferences {
     private let defaults = UserDefaults.standard
 
     private enum Keys {
-        static let schemeName = "tickeys_scheme"
-        static let volume = "tickeys_volume"
-        static let pitch = "tickeys_pitch"
-        static let filterMode = "tickeys_filter_mode"
-        static let filterList = "tickeys_filter_list"
-        static let prefExists = "tickeys_pref_exists"
-        static let launchAtLogin = "tickeys_launch_at_login"
+        static let schemeName = "keyper_scheme"
+        static let volume = "keyper_volume"
+        static let pitch = "keyper_pitch"
+        static let filterMode = "keyper_filter_mode"
+        static let filterList = "keyper_filter_list"
+        static let prefExists = "keyper_pref_exists"
+        static let launchAtLogin = "keyper_launch_at_login"
     }
 
     var schemeName: String? {

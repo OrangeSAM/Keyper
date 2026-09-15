@@ -5,15 +5,15 @@
     <key>CFBundleDevelopmentRegion</key>
     <string>en</string>
     <key>CFBundleExecutable</key>
-    <string>TickeysX</string>
+    <string>Keyper</string>
     <key>CFBundleIconFile</key>
     <string>tickeys</string>
     <key>CFBundleIdentifier</key>
-    <string>com.tickeys.x</string>
+    <string>com.orangesam.keyper</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>TickeysX</string>
+    <string>Keyper</string>
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
@@ -27,6 +27,6 @@
     <key>NSHighResolutionCapable</key>
     <true/>
     <key>NSHumanReadableCopyright</key>
-    <string>Tickeys Reborn</string>
+    <string>Copyright © 2026 OrangeSAM. All rights reserved.</string>
 </dict>
 </plist>

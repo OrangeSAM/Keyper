@@ -1,10 +1,10 @@
 #!/bin/bash
-# Build installer packages (.dmg and .pkg) for TickeysX
+# Build installer packages (.dmg and .pkg) for Keyper
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-APP_DIR="$PROJECT_DIR/TickeysX.app"
+APP_DIR="$PROJECT_DIR/Keyper.app"
 DIST_DIR="$PROJECT_DIR/dist"
 
 echo "=========================================="
@@ -20,10 +20,13 @@ fi
 mkdir -p "$DIST_DIR"
 
 VERSION="1.0.0"
-PKG_FILE="$DIST_DIR/TickeysX-${VERSION}.pkg"
-DMG_FILE="$DIST_DIR/TickeysX-${VERSION}.dmg"
+PKG_FILE="$DIST_DIR/Keyper-${VERSION}.pkg"
+DMG_FILE="$DIST_DIR/Keyper-${VERSION}.dmg"
 
 export COPYFILE_DISABLE=1
+
+# 清理历史旧包
+rm -f "$DIST_DIR"/Tickeys* 2>/dev/null || true
 
 echo ""
 echo "=========================================="
@@ -38,7 +41,7 @@ dot_clean "$PKG_ROOT" 2>/dev/null || true
 
 pkgbuild \
     --root "$PKG_ROOT" \
-    --identifier "com.tickeys.x" \
+    --identifier "com.orangesam.keyper" \
     --version "$VERSION" \
     --install-location "/Applications" \
     "$PKG_FILE"
@@ -65,7 +68,7 @@ rm -f "$DMG_FILE"
 
 # 生成压缩 DMG
 hdiutil create \
-    -volname "TickeysX" \
+    -volname "Keyper" \
     -srcfolder "$DMG_TEMP" \
     -ov \
     -format UDZO \

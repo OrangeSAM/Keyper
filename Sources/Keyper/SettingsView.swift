@@ -1,9 +1,9 @@
 import SwiftUI
 import AppKit
 
-/// Modern, beautifully styled settings window for TickeysX
+/// Modern, beautifully styled settings window for Keyper
 struct SettingsView: View {
-    @ObservedObject var engine: TickeysEngine
+    @ObservedObject var engine: KeyperEngine
     @State private var selectedTab: SettingsTab = .schemes
     @State private var testText: String = ""
     @State private var showingAppPicker: Bool = false
@@ -92,7 +92,7 @@ struct SettingsView: View {
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 8) {
-                        Text("TickeysX")
+                        Text("Keyper")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
 
                         Text("v1.0.0")
@@ -104,7 +104,7 @@ struct SettingsView: View {
                             .cornerRadius(4)
                     }
 
-                    Text("原版经典键盘敲击即时音效")
+                    Text("敲击即反馈 · 现代 macOS 原生键盘音效伴侣")
                         .font(.system(size: 12))
                         .foregroundColor(.secondary)
                 }
@@ -567,6 +567,21 @@ struct SettingsView: View {
                 Divider()
 
                 HStack {
+                    Text("开源主页")
+                    Spacer()
+                    Button("GitHub: OrangeSAM/Keyper") {
+                        if let url = URL(string: "https://github.com/OrangeSAM/Keyper") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                    .buttonStyle(.link)
+                    .font(.system(size: 12))
+                }
+                .font(.system(size: 12))
+
+                Divider()
+
+                HStack {
                     Text("辅助功能权限")
                     Spacer()
                     Button("打开系统设置") {
@@ -587,7 +602,7 @@ struct SettingsView: View {
             Button(role: .destructive, action: { NSApp.terminate(nil) }) {
                 HStack {
                     Image(systemName: "power")
-                    Text("退出 TickeysX")
+                    Text("退出 Keyper")
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 8)

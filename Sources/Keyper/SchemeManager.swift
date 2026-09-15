@@ -103,7 +103,7 @@ class SchemeManager {
         }
         // Check relative to working directory
         let cwdPath = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
-            .appendingPathComponent("Sources/TickeysX/Resources/data")
+            .appendingPathComponent("Sources/Keyper/Resources/data")
         if FileManager.default.fileExists(atPath: cwdPath.path) {
             return cwdPath
         }
