@@ -1,0 +1,47 @@
+name: Release Keyper
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Extract Version
+        id: get_version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG_NAME#v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
+
+      - name: Build Installers (.dmg & .pkg)
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/build_package.sh ${{ steps.get_version.outputs.VERSION }}
+
+      - name: Compute Checksums
+        run: |
+          cd dist
+          shasum -a 256 *.pkg *.dmg > checksums.txt
+          cat checksums.txt
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Keyper ${{ steps.get_version.outputs.TAG_NAME }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            dist/*.dmg
+            dist/*.pkg
+            dist/checksums.txt

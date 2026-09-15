@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var showingAppPicker: Bool = false
     @State private var appSearchQuery: String = ""
     @State private var launchAtLogin: Bool = Preferences.shared.launchAtLogin
+    @StateObject private var updateChecker = UpdateChecker.shared
 
     enum SettingsTab: String, CaseIterable, Identifiable {
         case schemes = "音效方案"
@@ -63,7 +64,7 @@ struct SettingsView: View {
                 .padding(22)
             }
         }
-        .frame(width: 530, height: 600)
+        .frame(width: 530, height: 570)
         .background(VisualEffectView(material: .underWindowBackground, blendingMode: .behindWindow))
     }
 
@@ -150,6 +151,7 @@ struct SettingsView: View {
                         .cornerRadius(8)
                     }
                     .buttonStyle(.plain)
+                    .pointingCursor()
                 }
             }
             .padding(3)
@@ -512,9 +514,9 @@ struct SettingsView: View {
     // MARK: - Tab 4: About & Shortcuts (关于与暗号)
 
     private var aboutTabContent: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 14) {
             // Secret Shortcut Card
-            VStack(spacing: 12) {
+            VStack(spacing: 10) {
                 Text("经典设置呼出暗号")
                     .font(.system(size: 14, weight: .bold))
 
@@ -533,14 +535,14 @@ struct SettingsView: View {
                     KeyCapView(letter: "2")
                     KeyCapView(letter: "3")
                 }
-                .padding(.vertical, 4)
+                .padding(.vertical, 2)
 
                 Text("（也支持小键盘数字键 1 2 3）")
                     .font(.system(size: 11))
                     .foregroundColor(.secondary.opacity(0.8))
             }
             .frame(maxWidth: .infinity)
-            .padding(18)
+            .padding(14)
             .background(
                 LinearGradient(
                     colors: [Color.accentColor.opacity(0.08), Color.purple.opacity(0.06)],
@@ -554,8 +556,90 @@ struct SettingsView: View {
             )
             .cornerRadius(12)
 
+            // Update Check Card
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                        .foregroundColor(.accentColor)
+                        .font(.system(size: 15))
+                    Text("版本与在线更新")
+                        .font(.system(size: 13, weight: .semibold))
+
+                    Spacer()
+
+                    if updateChecker.isChecking {
+                        ProgressView()
+                            .controlSize(.small)
+                            .scaleEffect(0.8)
+                    }
+
+                    Button(action: {
+                        updateChecker.checkForUpdates(manual: true)
+                    }) {
+                        Text(updateChecker.isChecking ? "检查中..." : "检查更新")
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .buttonStyle(.bordered)
+                    .controlSize(.small)
+                    .disabled(updateChecker.isChecking)
+                    .pointingCursor()
+                }
+
+                HStack {
+                    Text("当前版本: v\(updateChecker.currentVersion)")
+                        .font(.system(size: 12))
+                        .foregroundColor(.secondary)
+
+                    Spacer()
+
+                    if let msg = updateChecker.statusMessage {
+                        Text(msg)
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(updateChecker.updateAvailable ? .green : .secondary)
+                    } else if let err = updateChecker.errorMessage {
+                        Text(err)
+                            .font(.system(size: 11))
+                            .foregroundColor(.orange)
+                    }
+                }
+
+                // If new version available, show banner with download button
+                if updateChecker.updateAvailable, let release = updateChecker.latestRelease {
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("🎉 发现新版本 \(release.tagName)")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.green)
+                                if let body = release.body, !body.isEmpty {
+                                    Text(body.trimmingCharacters(in: .whitespacesAndNewlines))
+                                        .font(.system(size: 11))
+                                        .foregroundColor(.secondary)
+                                        .lineLimit(2)
+                                }
+                            }
+
+                            Spacer()
+
+                            Button("下载更新") {
+                                updateChecker.openDownload()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .controlSize(.small)
+                            .pointingCursor()
+                        }
+                    }
+                    .padding(10)
+                    .background(Color.green.opacity(0.1))
+                    .cornerRadius(8)
+                }
+            }
+            .padding(12)
+            .background(Color.secondary.opacity(0.05))
+            .cornerRadius(10)
+
             // About Info Card
-            VStack(spacing: 10) {
+            VStack(spacing: 8) {
                 HStack {
                     Text("技术架构")
                     Spacer()
@@ -576,6 +660,7 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.link)
                     .font(.system(size: 12))
+                    .pointingCursor()
                 }
                 .font(.system(size: 12))
 
@@ -589,26 +674,26 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.link)
                     .font(.system(size: 12))
+                    .pointingCursor()
                 }
                 .font(.system(size: 12))
             }
-            .padding(14)
+            .padding(12)
             .background(Color.secondary.opacity(0.05))
             .cornerRadius(10)
 
-            Spacer()
-
-            // Quit App Button
+            // Action / Quit App Button
             Button(role: .destructive, action: { NSApp.terminate(nil) }) {
                 HStack {
                     Image(systemName: "power")
                     Text("退出 Keyper")
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 8)
+                .padding(.vertical, 7)
             }
             .buttonStyle(.bordered)
             .controlSize(.regular)
+            .pointingCursor()
         }
     }
 }
@@ -699,6 +784,7 @@ struct SchemeCardView: View {
             .cornerRadius(10)
         }
         .buttonStyle(.plain)
+        .pointingCursor()
     }
 }
 
@@ -743,5 +829,24 @@ struct VisualEffectView: NSViewRepresentable {
     func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
         nsView.material = material
         nsView.blendingMode = blendingMode
+    }
+}
+
+/// Modifier to change cursor to pointing hand on hover
+struct PointingCursorModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content.onHover { inside in
+            if inside {
+                NSCursor.pointingHand.push()
+            } else {
+                NSCursor.pop()
+            }
+        }
+    }
+}
+
+extension View {
+    func pointingCursor() -> some View {
+        self.modifier(PointingCursorModifier())
     }
 }

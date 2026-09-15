@@ -19,7 +19,9 @@ fi
 
 mkdir -p "$DIST_DIR"
 
-VERSION="1.0.0"
+VERSION="${1:-${VERSION:-1.0.0}}"
+# Strip any leading 'v'
+VERSION="${VERSION#v}"
 PKG_FILE="$DIST_DIR/Keyper-${VERSION}.pkg"
 DMG_FILE="$DIST_DIR/Keyper-${VERSION}.dmg"
 
