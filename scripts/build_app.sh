@@ -43,8 +43,8 @@ if [ -d "$PROJECT_DIR/Sources/Keyper/Resources/data" ]; then
 fi
 
 # Copy icon
-if [ -f "$PROJECT_DIR/Resources/tickeys.icns" ]; then
-    cp "$PROJECT_DIR/Resources/tickeys.icns" "$APP_DIR/Contents/Resources/"
+if [ -f "$PROJECT_DIR/Resources/keyper.icns" ]; then
+    cp "$PROJECT_DIR/Resources/keyper.icns" "$APP_DIR/Contents/Resources/"
 fi
 
 # Sign the app bundle ad-hoc to ensure TCC Accessibility registration works properly

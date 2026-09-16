@@ -74,22 +74,11 @@ struct SettingsView: View {
         VStack(spacing: 14) {
             HStack(alignment: .center, spacing: 14) {
                 // App Logo
-                ZStack {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.9)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                        .frame(width: 44, height: 44)
-                        .shadow(color: Color.blue.opacity(0.3), radius: 6, x: 0, y: 3)
-
-                    Image(systemName: "keyboard.fill")
-                        .font(.system(size: 22))
-                        .foregroundColor(.white)
-                }
+                Image(nsImage: NSApp.applicationIconImage)
+                    .resizable()
+                    .frame(width: 44, height: 44)
+                    .cornerRadius(10)
+                    .shadow(color: Color.black.opacity(0.25), radius: 4, x: 0, y: 2)
 
                 VStack(alignment: .leading, spacing: 2) {
                     HStack(spacing: 8) {
