@@ -25,6 +25,11 @@ VERSION="${VERSION#v}"
 PKG_FILE="$DIST_DIR/Keyper-${VERSION}.pkg"
 DMG_FILE="$DIST_DIR/Keyper-${VERSION}.dmg"
 
+if [ -f "$APP_DIR/Contents/Info.plist" ]; then
+    plutil -replace CFBundleShortVersionString -string "$VERSION" "$APP_DIR/Contents/Info.plist" 2>/dev/null || true
+    plutil -replace CFBundleVersion -string "$VERSION" "$APP_DIR/Contents/Info.plist" 2>/dev/null || true
+fi
+
 export COPYFILE_DISABLE=1
 
 # 清理历史旧包
