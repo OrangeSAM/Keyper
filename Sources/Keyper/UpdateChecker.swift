@@ -38,7 +38,7 @@ class UpdateChecker: ObservableObject {
     static let shared = UpdateChecker()
 
     /// Current application version
-    let currentVersion: String = "1.0.0"
+    let currentVersion: String = "1.0.1"
 
     /// GitHub repo coordinate
     private let repo = "OrangeSAM/Keyper"

@@ -86,7 +86,7 @@ struct SettingsView: View {
                         Text("Keyper")
                             .font(.system(size: 20, weight: .bold, design: .rounded))
 
-                        Text("v1.0.0")
+                        Text("v\(updateChecker.currentVersion)")
                             .font(.system(size: 11, weight: .medium, design: .monospaced))
                             .foregroundColor(.secondary)
                             .padding(.horizontal, 6)
