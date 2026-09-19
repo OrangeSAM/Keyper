@@ -125,7 +125,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
-        window.setContentSize(NSSize(width: 530, height: 600))
+        window.backgroundColor = .windowBackgroundColor
+        window.setContentSize(NSSize(width: 530, height: 580))
         window.center()
         window.isReleasedWhenClosed = false
         window.delegate = self

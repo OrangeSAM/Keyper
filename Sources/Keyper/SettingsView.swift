@@ -34,7 +34,7 @@ struct SettingsView: View {
             // Top Header & Tab Navigation
             headerSection
                 .padding(.horizontal, 22)
-                .padding(.top, 20)
+                .padding(.top, 30)
                 .padding(.bottom, 12)
 
             // Accessibility Warning Banner (if permission missing)
@@ -64,8 +64,9 @@ struct SettingsView: View {
                 .padding(22)
             }
         }
-        .frame(width: 530, height: 570)
-        .background(VisualEffectView(material: .underWindowBackground, blendingMode: .behindWindow))
+        .frame(width: 530, height: 580)
+        .background(Color(NSColor.windowBackgroundColor))
+        .ignoresSafeArea()
     }
 
     // MARK: - Header & Tab Bar
@@ -138,8 +139,10 @@ struct SettingsView: View {
                         )
                         .foregroundColor(selectedTab == tab ? .accentColor : .primary)
                         .cornerRadius(8)
+                        .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
+                    .contentShape(Rectangle())
                     .pointingCursor()
                 }
             }
@@ -231,7 +234,11 @@ struct SettingsView: View {
                     .cornerRadius(8)
             }
             .padding(14)
-            .background(Color.secondary.opacity(0.04))
+            .background(Color(NSColor.controlBackgroundColor))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.secondary.opacity(0.12), lineWidth: 1)
+            )
             .cornerRadius(12)
         }
     }
@@ -241,7 +248,7 @@ struct SettingsView: View {
     private var audioTabContent: some View {
         VStack(spacing: 16) {
             // Volume Card
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Image(systemName: engine.volume == 0 ? "speaker.slash.fill" : "speaker.wave.3.fill")
                         .foregroundColor(.accentColor)
@@ -258,25 +265,63 @@ struct SettingsView: View {
                         .cornerRadius(6)
                 }
 
-                HStack(spacing: 14) {
+                HStack(spacing: 10) {
+                    // Step down button
+                    Button(action: {
+                        let currentInt = Int(round(engine.volume * 100))
+                        let newInt = max(0, ((currentInt - 1) / 5) * 5)
+                        engine.volume = Float(newInt) / 100.0
+                    }) {
+                        Image(systemName: "minus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(6)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                    .pointingCursor()
+
                     Image(systemName: "speaker.fill")
                         .foregroundColor(.secondary)
-                        .font(.system(size: 12))
+                        .font(.system(size: 11))
 
-                    Slider(value: $engine.volume, in: 0...1, step: 0.01)
+                    Slider(value: $engine.volume, in: 0...1)
                         .tint(.accentColor)
 
                     Image(systemName: "speaker.wave.3.fill")
                         .foregroundColor(.secondary)
-                        .font(.system(size: 14))
+                        .font(.system(size: 12))
+
+                    // Step up button
+                    Button(action: {
+                        let currentInt = Int(round(engine.volume * 100))
+                        let newInt = min(100, ((currentInt / 5) + 1) * 5)
+                        engine.volume = Float(newInt) / 100.0
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(6)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                    .pointingCursor()
                 }
             }
             .padding(16)
-            .background(Color.secondary.opacity(0.05))
+            .background(Color(NSColor.controlBackgroundColor))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.secondary.opacity(0.12), lineWidth: 1)
+            )
             .cornerRadius(12)
 
             // Pitch Card
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 14) {
                 HStack {
                     Image(systemName: "tuningfork")
                         .foregroundColor(.purple)
@@ -293,17 +338,51 @@ struct SettingsView: View {
                         .cornerRadius(6)
                 }
 
-                HStack(spacing: 14) {
+                HStack(spacing: 10) {
+                    // Step down button
+                    Button(action: {
+                        let currentSteps = Int(round(Double(engine.pitch) * 20))
+                        let newSteps = max(10, currentSteps - 1)
+                        engine.pitch = Float(newSteps) / 20.0
+                    }) {
+                        Image(systemName: "minus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(6)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                    .pointingCursor()
+
                     Text("低沉")
                         .font(.system(size: 11))
                         .foregroundColor(.secondary)
 
-                    Slider(value: $engine.pitch, in: 0.5...2.0, step: 0.01)
+                    Slider(value: $engine.pitch, in: 0.5...2.0)
                         .tint(.purple)
 
                     Text("清脆")
                         .font(.system(size: 11))
                         .foregroundColor(.secondary)
+
+                    // Step up button
+                    Button(action: {
+                        let currentSteps = Int(round(Double(engine.pitch) * 20))
+                        let newSteps = min(40, currentSteps + 1)
+                        engine.pitch = Float(newSteps) / 20.0
+                    }) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 11, weight: .bold))
+                            .frame(width: 26, height: 26)
+                            .background(Color.secondary.opacity(0.1))
+                            .cornerRadius(6)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .contentShape(Rectangle())
+                    .pointingCursor()
                 }
 
                 HStack {
@@ -313,46 +392,67 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.link)
                     .font(.system(size: 12))
+                    .pointingCursor()
                 }
             }
             .padding(16)
-            .background(Color.secondary.opacity(0.05))
+            .background(Color(NSColor.controlBackgroundColor))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.secondary.opacity(0.12), lineWidth: 1)
+            )
             .cornerRadius(12)
 
             // System Options Card
             VStack(spacing: 12) {
-                Toggle(isOn: Binding(
-                    get: { launchAtLogin },
-                    set: {
-                        launchAtLogin = $0
-                        Preferences.shared.launchAtLogin = $0
-                    }
-                )) {
-                    VStack(alignment: .leading, spacing: 2) {
+                // Row 1: Launch at Login
+                HStack(alignment: .center) {
+                    VStack(alignment: .leading, spacing: 3) {
                         Text("开机自动启动")
                             .font(.system(size: 13, weight: .medium))
                         Text("开机登录 macOS 时自动在后台静默运行")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                     }
+                    Spacer()
+                    Toggle("", isOn: Binding(
+                        get: { launchAtLogin },
+                        set: {
+                            launchAtLogin = $0
+                            Preferences.shared.launchAtLogin = $0
+                        }
+                    ))
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+                    .tint(.green)
+                    .pointingCursor()
                 }
-                .toggleStyle(.switch)
 
                 Divider()
 
-                Toggle(isOn: $engine.isMuted) {
-                    VStack(alignment: .leading, spacing: 2) {
+                // Row 2: Global Mute
+                HStack(alignment: .center) {
+                    VStack(alignment: .leading, spacing: 3) {
                         Text("全局静音")
                             .font(.system(size: 13, weight: .medium))
                         Text("暂时静音所有按键发声")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                     }
+                    Spacer()
+                    Toggle("", isOn: $engine.isMuted)
+                        .toggleStyle(.switch)
+                        .labelsHidden()
+                        .tint(.green)
+                        .pointingCursor()
                 }
-                .toggleStyle(.switch)
             }
             .padding(16)
-            .background(Color.secondary.opacity(0.05))
+            .background(Color(NSColor.controlBackgroundColor))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.secondary.opacity(0.12), lineWidth: 1)
+            )
             .cornerRadius(12)
         }
     }
@@ -764,15 +864,17 @@ struct SchemeCardView: View {
             .background(
                 isSelected
                     ? Color.accentColor.opacity(0.12)
-                    : Color.secondary.opacity(0.06)
+                    : Color(NSColor.controlBackgroundColor)
             )
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(isSelected ? Color.accentColor : Color.secondary.opacity(0.12), lineWidth: isSelected ? 1.5 : 1)
             )
             .cornerRadius(10)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
+        .contentShape(Rectangle())
         .pointingCursor()
     }
 }
