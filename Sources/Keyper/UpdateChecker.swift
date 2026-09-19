@@ -52,7 +52,7 @@ class UpdateChecker: ObservableObject {
 
     private init() {}
 
-    /// Check for updates from GitHub Releases API
+    /// Check for updates using GitHub Web redirect (zero rate limit, immune to API 403)
     /// - Parameter manual: If true, will set a status message when already up to date
     func checkForUpdates(manual: Bool = false) {
         guard !isChecking else { return }
@@ -63,7 +63,7 @@ class UpdateChecker: ObservableObject {
             self.statusMessage = nil
         }
 
-        guard let url = URL(string: "https://api.github.com/repos/\(repo)/releases/latest") else {
+        guard let url = URL(string: "https://github.com/\(repo)/releases/latest") else {
             DispatchQueue.main.async {
                 self.isChecking = false
                 self.errorMessage = "无效的更新检查地址"
@@ -72,10 +72,10 @@ class UpdateChecker: ObservableObject {
         }
 
         var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
-        request.setValue("application/vnd.github.v3+json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "HEAD"
         request.setValue("Keyper-App/\(currentVersion)", forHTTPHeaderField: "User-Agent")
 
-        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { [weak self] _, response, error in
             guard let self = self else { return }
 
             DispatchQueue.main.async {
@@ -93,35 +93,43 @@ class UpdateChecker: ObservableObject {
                 }
 
                 if httpResponse.statusCode == 404 {
-                    // No release found yet
+                    // No release found
                     if manual {
                         self.statusMessage = "当前已是最新版本 (v\(self.currentVersion))"
                     }
                     return
                 }
 
-                guard httpResponse.statusCode == 200, let data = data else {
-                    self.errorMessage = "服务器返回错误 (状态码 \(httpResponse.statusCode))"
+                guard let finalUrl = httpResponse.url else {
+                    self.errorMessage = "无法解析版本跳转地址"
                     return
                 }
 
-                do {
-                    let decoder = JSONDecoder()
-                    let release = try decoder.decode(GitHubRelease.self, from: data)
-                    let remoteVersion = release.tagName.trimmingCharacters(in: CharacterSet(charactersIn: "vV "))
+                let tag = finalUrl.lastPathComponent
+                let remoteVersion = tag.trimmingCharacters(in: CharacterSet(charactersIn: "vV "))
 
-                    if self.isVersion(remoteVersion, higherThan: self.currentVersion) {
-                        self.latestRelease = release
-                        self.updateAvailable = true
-                        self.statusMessage = "发现新版本 v\(remoteVersion)"
-                    } else {
-                        self.updateAvailable = false
-                        if manual {
-                            self.statusMessage = "当前已是最新版本 (v\(self.currentVersion))"
-                        }
+                if self.isVersion(remoteVersion, higherThan: self.currentVersion) {
+                    let dmgUrl = "https://github.com/\(self.repo)/releases/download/\(tag)/Keyper-\(remoteVersion).dmg"
+                    let pkgUrl = "https://github.com/\(self.repo)/releases/download/\(tag)/Keyper-\(remoteVersion).pkg"
+                    let assets = [
+                        GitHubAsset(name: "Keyper-\(remoteVersion).dmg", size: 0, browserDownloadUrl: dmgUrl),
+                        GitHubAsset(name: "Keyper-\(remoteVersion).pkg", size: 0, browserDownloadUrl: pkgUrl)
+                    ]
+                    self.latestRelease = GitHubRelease(
+                        tagName: tag,
+                        name: "Keyper \(tag)",
+                        body: "可在 GitHub Releases 查看更新说明并下载安装包。",
+                        htmlUrl: finalUrl.absoluteString,
+                        publishedAt: nil,
+                        assets: assets
+                    )
+                    self.updateAvailable = true
+                    self.statusMessage = "发现新版本 v\(remoteVersion)"
+                } else {
+                    self.updateAvailable = false
+                    if manual {
+                        self.statusMessage = "当前已是最新版本 (v\(self.currentVersion))"
                     }
-                } catch {
-                    self.errorMessage = "解析版本信息失败: \(error.localizedDescription)"
                 }
             }
         }
