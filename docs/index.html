@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keyper - 敲击即反馈 · 现代 macOS 原生键盘音效伴侣</title>
+  <meta name="description" content="Keyper 是专为现代 macOS 打造的原生键盘音效伴侣。100% Swift + CoreAudio 重写，1:1 纯正复刻 Cherry G80 原厂机械轴、老式打字机与灵动水滴声。" />
+  <meta name="keywords" content="Keyper, Tickeys, macOS 键盘音效, 机械键盘音效, Cherry G80, 打字机音效, CoreAudio, Swift" />
+
+  <!-- OpenGraph -->
+  <meta property="og:title" content="Keyper - 敲击即反馈 · 现代 macOS 原生键盘音效伴侣" />
+  <meta property="og:description" content="100% 现代 Swift 原生复刻，毫秒级响应，8 种经典键盘声学方案。" />
+  <meta property="og:image" content="assets/icon.png" />
+  <meta property="og:url" content="https://orangesam.github.io/Keyper/" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="bg-glow-container">
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+  </div>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="brand">
+        <img src="assets/icon.png" alt="Keyper Logo" class="brand-icon" />
+        <span class="brand-name">Keyper</span>
+        <span class="brand-badge">v1.0.1</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#simulator" class="nav-link">在线试玩</a>
+        <a href="#features" class="nav-link">核心特性</a>
+        <a href="#schemes" class="nav-link">音效库</a>
+        <a href="#secret" class="nav-link">暗号系统</a>
+        <a href="https://github.com/OrangeSAM/Keyper" target="_blank" class="nav-btn">
+          <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          GitHub 源码
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-pill">
+        <span class="pill-dot"></span>
+        <span>macOS 13+ · 现代原生 Swift 5.9 · 0.1% 超低能耗</span>
+      </div>
+
+      <h1 class="hero-title">
+        让指尖的每一次敲击，<br />
+        <span class="text-gradient">化作悦耳的声学艺术。</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        <strong>Keyper</strong> 是专为现代 macOS 打造的原生键盘音效伴侣。告别陈旧废弃框架与杂音回音，1:1 深度复刻 Cherry 原厂机械轴、老式打字机与灵动水滴声。
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://github.com/OrangeSAM/Keyper/releases/download/v1.0.1/Keyper-1.0.1.dmg" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 1.01-2.87-.96.04-2.12.64-2.8 1.44-.59.68-1.11 1.76-1.01 2.81 1.07.08 2.18-.57 2.8-1.38z"/>
+          </svg>
+          下载 macOS 版 (.dmg)
+        </a>
+        <a href="https://github.com/OrangeSAM/Keyper/releases/download/v1.0.1/Keyper-1.0.1.pkg" class="btn-secondary">
+          下载 PKG 安装器
+        </a>
+      </div>
+
+      <div class="hero-meta">
+        <span>✓ 支持 Apple Silicon (M1/M2/M3/M4) & Intel</span>
+        <span>✓ 离线安全 · 无网络隐私权限</span>
+        <span>✓ 免越狱安装</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Simulator Section -->
+  <section id="simulator" class="simulator-section">
+    <div class="container">
+      <div class="simulator-card">
+        
+        <!-- Scheme Switcher Bar -->
+        <div class="scheme-selector-wrapper">
+          <div class="scheme-selector-header">
+            <span class="scheme-selector-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              切换音效方案预览：
+            </span>
+            <span class="scheme-hint">💡 敲击你的键盘或点击下方键帽即刻发声</span>
+          </div>
+
+          <div class="scheme-pills">
+            <button class="scheme-btn active" data-scheme="Cherry_G80_3000">🍒 Cherry G80-3000</button>
+            <button class="scheme-btn" data-scheme="bubble">🫧 水滴气泡 Bubble</button>
+            <button class="scheme-btn" data-scheme="typewriter">📜 复古打字机 Typewriter</button>
+            <button class="scheme-btn" data-scheme="sword">⚔️ 拔刀剑气 Sword</button>
+            <button class="scheme-btn" data-scheme="mechanical">⌨️ 经典机械轴 Mechanical</button>
+            <button class="scheme-btn" data-scheme="Cherry_G80_3494">🔴 Cherry G80-3494</button>
+            <button class="scheme-btn" data-scheme="drum">🥁 架子鼓 Drum</button>
+            <button class="scheme-btn" data-scheme="starwars">✨ 星战光剑 Star Wars</button>
+          </div>
+        </div>
+
+        <!-- Typing Sandbox -->
+        <div class="sandbox-box">
+          <span class="sandbox-icon">⌨️</span>
+          <input 
+            type="text" 
+            id="sandboxInput" 
+            class="sandbox-input" 
+            placeholder="在这里随意敲击键盘输入文字（回车、退格、空格）试听极速原声音效..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <span class="sandbox-badge">LIVE AUDIO</span>
+        </div>
+
+        <!-- 60% Virtual Mechanical Keyboard Deck -->
+        <div class="keyboard-deck">
+          <!-- Row 1: Numbers -->
+          <div class="keyboard-row">
+            <div class="keycap" data-code="Backquote">`</div>
+            <div class="keycap" data-code="Digit1">1</div>
+            <div class="keycap" data-code="Digit2">2</div>
+            <div class="keycap" data-code="Digit3">3</div>
+            <div class="keycap" data-code="Digit4">4</div>
+            <div class="keycap" data-code="Digit5">5</div>
+            <div class="keycap" data-code="Digit6">6</div>
+            <div class="keycap" data-code="Digit7">7</div>
+            <div class="keycap" data-code="Digit8">8</div>
+            <div class="keycap" data-code="Digit9">9</div>
+            <div class="keycap" data-code="Digit0">0</div>
+            <div class="keycap" data-code="Minus">-</div>
+            <div class="keycap" data-code="Equal">=</div>
+            <div class="keycap key-backspace" data-code="Backspace">Delete</div>
+          </div>
+
+          <!-- Row 2: QWERTY -->
+          <div class="keyboard-row">
+            <div class="keycap key-tab" data-code="Tab">Tab</div>
+            <div class="keycap" data-code="KeyQ">Q</div>
+            <div class="keycap" data-code="KeyW">W</div>
+            <div class="keycap" data-code="KeyE">E</div>
+            <div class="keycap" data-code="KeyR">R</div>
+            <div class="keycap" data-code="KeyT">T</div>
+            <div class="keycap" data-code="KeyY">Y</div>
+            <div class="keycap" data-code="KeyU">U</div>
+            <div class="keycap" data-code="KeyI">I</div>
+            <div class="keycap" data-code="KeyO">O</div>
+            <div class="keycap" data-code="KeyP">P</div>
+            <div class="keycap" data-code="BracketLeft">[</div>
+            <div class="keycap" data-code="BracketRight">]</div>
+            <div class="keycap" data-code="Backslash">\</div>
+          </div>
+
+          <!-- Row 3: ASDF -->
+          <div class="keyboard-row">
+            <div class="keycap key-caps" data-code="CapsLock">Caps</div>
+            <div class="keycap" data-code="KeyA">A</div>
+            <div class="keycap" data-code="KeyS">S</div>
+            <div class="keycap" data-code="KeyD">D</div>
+            <div class="keycap" data-code="KeyF">F</div>
+            <div class="keycap" data-code="KeyG">G</div>
+            <div class="keycap" data-code="KeyH">H</div>
+            <div class="keycap" data-code="KeyJ">J</div>
+            <div class="keycap" data-code="KeyK">K</div>
+            <div class="keycap" data-code="KeyL">L</div>
+            <div class="keycap" data-code="Semicolon">;</div>
+            <div class="keycap" data-code="Quote">'</div>
+            <div class="keycap key-enter" data-code="Enter">Return ↵</div>
+          </div>
+
+          <!-- Row 4: ZXCV -->
+          <div class="keyboard-row">
+            <div class="keycap key-shift-l" data-code="ShiftLeft">Shift</div>
+            <div class="keycap" data-code="KeyZ">Z</div>
+            <div class="keycap" data-code="KeyX">X</div>
+            <div class="keycap" data-code="KeyC">C</div>
+            <div class="keycap" data-code="KeyV">V</div>
+            <div class="keycap" data-code="KeyB">B</div>
+            <div class="keycap" data-code="KeyN">N</div>
+            <div class="keycap" data-code="KeyM">M</div>
+            <div class="keycap" data-code="Comma">,</div>
+            <div class="keycap" data-code="Period">.</div>
+            <div class="keycap" data-code="Slash">/</div>
+            <div class="keycap key-shift-r" data-code="ShiftRight">Shift</div>
+          </div>
+
+          <!-- Row 5: Space & Modifiers -->
+          <div class="keyboard-row">
+            <div class="keycap key-mod" data-code="ControlLeft">control</div>
+            <div class="keycap key-mod" data-code="AltLeft">option</div>
+            <div class="keycap key-mod" data-code="MetaLeft">command</div>
+            <div class="keycap key-space" data-code="Space">Space</div>
+            <div class="keycap key-mod" data-code="MetaRight">command</div>
+            <div class="keycap key-mod" data-code="AltRight">option</div>
+            <div class="keycap" data-code="ArrowLeft">←</div>
+            <div class="keycap" data-code="ArrowRight">→</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Pure Native Engineering</span>
+        <h2 class="section-title">为苛刻打字手感而生的现代架构</h2>
+        <p class="section-desc">抛弃已淘汰的技术债，基于现代 Apple CoreAudio 硬件级低延迟管线全面重构。</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">⚡️</div>
+          <h3 class="feature-title">微秒级低延迟响应</h3>
+          <p class="feature-text">采用 Apple 原生 AVAudioEngine 搭配 Varispeed 模拟重采样技术，消除传统软件音频引擎的混响与相位模糊，按键触发干净利落。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🎹</div>
+          <h3 class="feature-title">确定性键位哈希算法</h3>
+          <p class="feature-text">1:1 对齐原版 Tickeys 确定性映射逻辑，每一个字母按键对应固定的声调片段，完美保留打字时肌肉记忆的节奏与旋律感。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🛡</div>
+          <h3 class="feature-title">120ms 防抖与双通道轮替</h3>
+          <p class="feature-text">原版同键位连击滤波与 2-Voice Ping-Pong 轮替机制，彻底杜绝快速连续输入或长按按键时的破音重叠与杂乱浊音。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🕵️</div>
+          <h3 class="feature-title">经典暗号 QAZ123 呼出</h3>
+          <p class="feature-text">不占 Dock 栏，不打扰工作流。无论你在写代码、刷网页还是在终端，盲打输入暗号即可瞬间唤出精致的设置面板。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🔕</div>
+          <h3 class="feature-title">黑白名单应用过滤</h3>
+          <p class="feature-text">不想在写敏感代码或特定编辑器中发出声音？一键选择正在运行的应用加入黑名单或白名单，精准掌控发声时机。</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-wrapper">🔄</div>
+          <h3 class="feature-title">无感在线更新检测</h3>
+          <p class="feature-text">集成 Web 重定向极速探测算法，彻底打破公共代理 IP 的 API 限流束缚，0.2 秒完成版本校验，一键直通最新安装包。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secret Code QAZ123 Interactive Section -->
+  <section id="secret" class="secret-section">
+    <div class="container">
+      <div class="secret-card">
+        <h2 class="secret-title">随时呼出：经典键盘暗号</h2>
+        <p class="secret-desc">
+          在键盘任意位置盲打输入以下 6 个键，无需使用鼠标，设置面板随叫随到：
+        </p>
+
+        <div class="secret-keys-row">
+          <div class="secret-keycap" data-code="KeyQ">Q</div>
+          <div class="secret-keycap" data-code="KeyA">A</div>
+          <div class="secret-keycap" data-code="KeyZ">Z</div>
+          <span class="secret-plus">+</span>
+          <div class="secret-keycap" data-code="Digit1">1</div>
+          <div class="secret-keycap" data-code="Digit2">2</div>
+          <div class="secret-keycap" data-code="Digit3">3</div>
+        </div>
+
+        <p id="secretStatus" class="secret-status">敲击键盘测试暗号 Q A Z 1 2 3</p>
+        <button id="openModalBtn" class="btn-secondary" style="margin-top: 16px; font-size: 13px; padding: 8px 18px;">
+          预览设置面板界面 ↗
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sound Schemes Gallery -->
+  <section id="schemes" class="schemes-gallery-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Sound Schemes</span>
+        <h2 class="section-title">8 套完整无损声学方案</h2>
+        <p class="section-desc">无论是沉浸机械手感，还是复古打字浪漫，总有一款击中你的耳朵。</p>
+      </div>
+
+      <div class="schemes-grid">
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">🍒</span>
+          <div>
+            <div class="scheme-card-name">Cherry G80-3000</div>
+            <div class="scheme-card-desc">原厂经典青轴，高亢清脆、段落感强烈</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">🫧</span>
+          <div>
+            <div class="scheme-card-name">Bubble 水滴气泡</div>
+            <div class="scheme-card-desc">空灵清澈的水泡破裂声，轻松解压</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">📜</span>
+          <div>
+            <div class="scheme-card-name">Typewriter 打字机</div>
+            <div class="scheme-card-desc">复古机械字模撞击、空格滑膛与回车换行铃</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">⚔️</span>
+          <div>
+            <div class="scheme-card-name">Sword 拔刀剑气</div>
+            <div class="scheme-card-desc">金石碰撞与凌厉剑光，敲出武侠侠客感</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">⌨️</span>
+          <div>
+            <div class="scheme-card-name">Mechanical 机械轴</div>
+            <div class="scheme-card-desc">沉稳扎实的敲击体感，回馈饱满厚重</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">🔴</span>
+          <div>
+            <div class="scheme-card-name">Cherry G80-3494</div>
+            <div class="scheme-card-desc">红轴顺滑绵密触底声，温柔安静耐听</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">🥁</span>
+          <div>
+            <div class="scheme-card-name">Drum 架子鼓</div>
+            <div class="scheme-card-desc">底鼓踩镲军鼓节拍，打字如同即兴演奏</div>
+          </div>
+        </div>
+
+        <div class="scheme-card-item">
+          <span class="scheme-card-icon">✨</span>
+          <div>
+            <div class="scheme-card-name">Star Wars 星球大战</div>
+            <div class="scheme-card-desc">光剑嗡鸣与激光爆能枪，科幻感拉满</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Download Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <h2 class="cta-title">重拾键盘敲击的纯粹快乐</h2>
+        <p class="cta-desc">
+          完全开源、永久免费、原生纯净。立刻下载体验伴随每一次灵感流淌的声音节奏。
+        </p>
+        <div class="hero-cta" style="margin-bottom: 0;">
+          <a href="https://github.com/OrangeSAM/Keyper/releases/download/v1.0.1/Keyper-1.0.1.dmg" class="btn-primary">
+            立即下载 Keyper (v1.0.1 DMG)
+          </a>
+          <a href="https://github.com/OrangeSAM/Keyper" target="_blank" class="btn-secondary">
+            前往 GitHub 仓库
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div>
+        <p>© 2026 <strong>Keyper</strong>. Crafted with precision for macOS enthusiasts.</p>
+        <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">
+          致敬原始 Tickeys 项目 · 基于 Swift + SwiftUI + CoreAudio 原生重写
+        </p>
+      </div>
+
+      <div class="footer-links">
+        <a href="https://github.com/OrangeSAM/Keyper" class="footer-link">GitHub 仓库</a>
+        <a href="https://github.com/OrangeSAM/Keyper/releases" class="footer-link">发布日志</a>
+        <a href="https://github.com/OrangeSAM/Keyper/blob/main/LICENSE" class="footer-link">MIT 协议</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Mockup of Settings Panel (Easter Egg) -->
+  <div id="settingsModal" class="modal-overlay">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="traffic-lights">
+          <div id="modalCloseBtn" class="traffic-light light-red" title="关闭"></div>
+          <div class="traffic-light light-yellow"></div>
+          <div class="traffic-light light-green"></div>
+        </div>
+        <span class="modal-title">Keyper 设置 · 100% 原生面板</span>
+        <div style="width: 50px;"></div>
+      </div>
+
+      <div class="modal-body">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px;">
+          <img src="assets/icon.png" style="width: 48px; height: 48px; border-radius: 10px;" alt="icon" />
+          <div>
+            <h4 style="font-size: 17px; font-weight: 700; color: #fff;">Keyper <span style="font-size: 12px; color: #94a3b8; background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">v1.0.1</span></h4>
+            <p style="font-size: 12px; color: #94a3b8;">敲击即反馈 · 现代 macOS 原生键盘音效伴侣</p>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 8px;">
+            <span>音量调节</span>
+            <span style="color: #6366f1;">70%</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+            <div style="width: 70%; height: 100%; background: #6366f1;"></div>
+          </div>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 18px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 8px;">
+            <span>音调微调 (Pitch)</span>
+            <span style="color: #a855f7;">1.00x 标准原声</span>
+          </div>
+          <div style="height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden;">
+            <div style="width: 50%; height: 100%; background: #a855f7;"></div>
+          </div>
+        </div>
+
+        <p style="font-size: 12px; color: #10b981; text-align: center; margin-bottom: 12px;">
+          ✨ 您已通过盲打 QAZ123 成功触发彩蛋！真实应用中此面板随时秒开。
+        </p>
+
+        <a href="https://github.com/OrangeSAM/Keyper/releases/download/v1.0.1/Keyper-1.0.1.dmg" class="btn-primary" style="width: 100%; justify-content: center;">
+          立即下载并安装至 Mac
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
