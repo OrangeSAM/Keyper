@@ -10,7 +10,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Apple%20Silicon%20%7C%20Intel-success?style=flat-square)](#)
 
-[English](#features) | [简体中文](#功能特性) | [🌐 在线交互试玩 / Live Demo](https://orangesam.github.io/Keyper/) | [安装指南](#安装指南--installation) | [快速上手](#快捷暗号--shortcut)
+[English](#features) | [简体中文](#功能特性) | [🌐 在线交互试玩 / Live Demo](https://kyper.yibi.host/) | [安装指南](#安装指南--installation) | [快速上手](#快捷暗号--shortcut)
 
 </div>
 
