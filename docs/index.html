@@ -3,19 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keyper - 敲击即反馈 · 现代 macOS 原生键盘音效伴侣</title>
-  <meta name="description" content="Keyper 是专为现代 macOS 打造的原生键盘音效伴侣。100% Swift + CoreAudio 重写，1:1 纯正复刻 Cherry G80 原厂机械轴、老式打字机与灵动水滴声。" />
-  <meta name="keywords" content="Keyper, Tickeys, macOS 键盘音效, 机械键盘音效, Cherry G80, 打字机音效, CoreAudio, Swift" />
+  <title>Keyper - 敲击即反馈 · 现代 macOS 原生键盘音效伴侣 (Tickeys 现代替代版)</title>
+  <meta name="description" content="Keyper 是一款专为现代 macOS (13+ Ventura / Sonoma / Sequoia) 打造的开源免费原生键盘音效伴侣，老牌神器 Tickeys 的现代重制版。100% Swift + CoreAudio 重构，毫秒级无延迟响应，深度还原 Cherry 原厂机械轴、打字机、水滴气泡等 8 种高保真声学方案，0.1% 超低能耗，完全离线运行保护隐私。" />
+  <meta name="keywords" content="Keyper, Tickeys, Tickeys替代, Tickeys mac, macOS 键盘音效, 机械键盘音效模拟器, 打字机音效, Cherry G80, Mac 打字声音, Swift CoreAudio, 开源 macOS 软件, 键盘声效, Mac打字解压" />
+  <meta name="author" content="刘一笔 (OrangeSAM)" />
+  <meta name="theme-color" content="#0a0b10" />
+  <link rel="canonical" href="https://keyper.yibi.host/" />
 
   <!-- OpenGraph -->
+  <meta property="og:type" content="website" />
   <meta property="og:title" content="Keyper - 敲击即反馈 · 现代 macOS 原生键盘音效伴侣" />
-  <meta property="og:description" content="100% 现代 Swift 原生复刻，毫秒级响应，8 种经典键盘声学方案。" />
-  <meta property="og:image" content="assets/icon.png" />
+  <meta property="og:description" content="100% 现代 Swift 原生复刻，毫秒级零延迟，8 种经典键盘声学方案，Tickeys 完美替代品。" />
+  <meta property="og:image" content="https://keyper.yibi.host/assets/icon.png" />
   <meta property="og:url" content="https://keyper.yibi.host/" />
+  <meta property="og:site_name" content="Keyper" />
+  <meta property="og:locale" content="zh_CN" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Keyper - 现代 macOS 原生键盘音效伴侣" />
+  <meta name="twitter:description" content="100% 现代 Swift 原生复刻，毫秒级零延迟，8 种经典键盘声学方案，Tickeys 完美替代品。" />
+  <meta name="twitter:image" content="https://keyper.yibi.host/assets/icon.png" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+
+  <!-- Schema.org JSON-LD Structured Data for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Keyper",
+        "alternateName": "Keyper Keyboard Sound Companion",
+        "operatingSystem": "macOS 13.0 or later (Ventura, Sonoma, Sequoia)",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "专为现代 macOS 打造的开源原生键盘音效伴侣，100% Swift + CoreAudio 重构，0 延迟还原 Cherry G80、打字机、气泡水滴等经典键盘声学方案。",
+        "url": "https://keyper.yibi.host/",
+        "downloadUrl": "https://github.com/OrangeSAM/Keyper/releases",
+        "screenshot": "https://keyper.yibi.host/assets/icon.png",
+        "author": {
+          "@type": "Person",
+          "name": "刘一笔",
+          "url": "https://blog.yibi.host/"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Keyper 与老版 Tickeys 有什么区别？为什么推荐使用 Keyper？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "原版 Tickeys 基于已被 Apple 废弃的 OpenAL/ALUT 框架和陈旧 Cocoa 接口构建，在现代 macOS（如 Sonoma / Sequoia）上容易崩溃甚至无法发声。Keyper 采用 100% 现代 Swift 5.9 + CoreAudio 原生重写，0 废弃 API，支持 Apple Silicon 原生架构，提供毫秒级多音轨并发调度与现代化毛玻璃设置面板。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Keyper 需要辅助功能权限，会有键盘记录或隐私风险吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "完全无隐私风险。Keyper 100% 开源（MIT 协议），不包含任何网络请求代码、无第三方追踪 SDK、完全本地单机运行。申请辅助功能权限仅用于捕获物理按键输入以触发对应按键音效，绝不保存、记录或上传任何敲击内容。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Keyper 在后台长时间运行会耗电或发热吗？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "不会。Keyper 采用底层硬件直通的 CoreAudio 引擎与 6 轨循环分配池，在静默待机时不占用任何额外开销，整体 CPU 占用常年维持在 0.1% 甚至 0.0%，内存占用约 30MB，极度轻巧省电。"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "如何随时唤出设置面板或调整音效？",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "随时在键盘上盲打敲击经典暗号「Q A Z 1 2 3」（或小键盘 1 2 3），即可一键呼出设置面板；同时屏幕右上角菜单栏常驻键盘图标，点击亦可打开设置。"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
@@ -42,6 +121,8 @@
         <a href="#features" class="nav-link">核心特性</a>
         <a href="#schemes" class="nav-link">音效库</a>
         <a href="#secret" class="nav-link">暗号系统</a>
+        <a href="#faq" class="nav-link">常见问题</a>
+        <a href="#author" class="nav-link">关于作者</a>
         <a href="https://github.com/OrangeSAM/Keyper" target="_blank" class="nav-btn">
           <svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
@@ -375,6 +456,79 @@
     </div>
   </section>
 
+  <!-- FAQ Section -->
+  <section id="faq" class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">FAQ</span>
+        <h2 class="section-title">常见问题与技术答疑</h2>
+        <p class="section-desc">关于 Keyper 的底层技术、隐私安全性及日常使用解答。</p>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q1</span>
+            Keyper 与老版 Tickeys 有什么区别？
+          </h3>
+          <p class="faq-answer">
+            老牌 Tickeys 基于已被 Apple 废弃的 OpenAL 接口和过时架构构建，在现代 macOS（如 Sonoma / Sequoia）上容易崩溃、杂音延迟或彻底失效。Keyper 采用 100% 现代 Swift + CoreAudio (AVAudioEngine) 原生重写，底层硬件级并发调度，支持 Apple Silicon M 系列芯片，永久兼容后续 macOS 版本。
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q2</span>
+            为什么需要辅助功能权限？有键盘隐私记录隐患吗？
+          </h3>
+          <p class="faq-answer">
+            完全没有安全隐患。Keyper 100% 开源（MIT 协议），代码公开透明；应用未申请任何网络权限（完全断网单机运行），所有音频均由本地引擎合成播放。申请「辅助功能」仅用于系统级捕获按键物理敲击事件以触发对应音效，绝不存储、记录或上传任何键入内容。
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q3</span>
+            长时间在后台运行会占用 CPU 或发热耗电吗？
+          </h3>
+          <p class="faq-answer">
+            极度轻量。得益于 Apple 官方原生 CoreAudio 音频管线与 6 轨并发缓冲池设计，Keyper 待机时 CPU 占用稳定在 0.0% ~ 0.1%，内存占用仅 30MB 左右，比浏览器一个标签页更省电，支持 Launch at Login 开机自启常驻。
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q4</span>
+            安装后敲击键盘没有声音怎么办？
+          </h3>
+          <p class="faq-answer">
+            请确认：① 首次打开后是否已在「系统设置 → 隐私与安全性 → 辅助功能」中勾选允许 Keyper；② 确认 Mac 未开启静音且音量已打开；③ 确认当前应用未被加入 Keyper 的黑名单静音列表。
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q5</span>
+            如何随时调节音量、音调或更换音效方案？
+          </h3>
+          <p class="faq-answer">
+            在键盘任意位置盲打敲击暗号 <code>Q A Z 1 2 3</code>（或小键盘 1 2 3），即可秒级呼出毛玻璃设置面板；或者点击屏幕右上角 macOS 菜单栏的 ⌨️ 小图标，均可随时随地自由调节。
+          </p>
+        </div>
+
+        <div class="faq-card">
+          <h3 class="faq-question">
+            <span class="faq-q-icon">Q6</span>
+            支持自定义导入自己的键盘音效包吗？
+          </h3>
+          <p class="faq-answer">
+            内置已提供 Cherry G80 原厂轴、打字机、气泡水滴、拔刀光剑等 8 种高保真经典声学方案。后续版本将进一步开放音效包自定义导入与社区方案共享，欢迎关注作者公众号获取最新更新！
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Download Section -->
   <section class="cta-section">
     <div class="container">
@@ -395,17 +549,93 @@
     </div>
   </section>
 
+  <!-- Author & Community Section -->
+  <section id="author" class="author-section">
+    <div class="container">
+      <div class="author-card-wrapper">
+        <div class="author-header">
+          <span class="section-badge">About Creator</span>
+          <h2 class="author-name">关于作者 · 刘一笔</h2>
+          <p class="author-bio">
+            前端工程师 & 独立开发者。热爱打磨轻巧精致的原生数字工具，致敬经典 Tickeys 精神并倾心重构 Keyper。
+          </p>
+          <div class="author-badges">
+            <span class="author-badge">macOS 原生开发</span>
+            <span class="author-badge">100% 纯粹开源</span>
+            <span class="author-badge">键盘与声音控</span>
+            <span class="author-badge">独立创造者</span>
+          </div>
+        </div>
+
+        <div class="author-qr-grid">
+          <!-- WeChat Official Account -->
+          <div class="qr-card">
+            <div class="qr-box">
+              <img src="assets/gzh.jpg" alt="微信公众号：刘一笔" loading="lazy" />
+            </div>
+            <div class="qr-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8.5 2C4.36 2 1 4.91 1 8.5c0 1.99 1.05 3.77 2.7 4.97-.13.78-.62 2.37-.66 2.52-.08.31.11.41.3.28.15-.1 2.22-1.5 3.09-2.09.67.2 1.36.32 2.07.32.17 0 .34-.01.5-.02-.32-.88-.5-1.83-.5-2.81 0-4.42 4.03-8 9-8 .17 0 .33.01.5.02C17.06 3.65 13.06 2 8.5 2zm-2.25 5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm4.5 0a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM15.5 9c-4.14 0-7.5 2.91-7.5 6.5 0 1.99 1.05 3.77 2.7 4.97-.13.78-.62 2.37-.66 2.52-.08.31.11.41.3.28.15-.1 2.22-1.5 3.09-2.09.67.2 1.36.32 2.07.32 4.14 0 7.5-2.91 7.5-6.5S19.64 9 15.5 9zm-2.75 5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zm4.5 0a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
+              </svg>
+              微信公众号「刘一笔」
+            </div>
+            <p class="qr-desc">
+              深度记录独立开发手记、技术长文探索与生活思考复盘。
+            </p>
+            <span class="qr-hint">微信扫码或搜索「刘一笔」关注</span>
+          </div>
+
+          <!-- Personal WeChat -->
+          <div class="qr-card">
+            <div class="qr-box">
+              <img src="assets/wxh.png" alt="作者微信二维码" loading="lazy" />
+            </div>
+            <div class="qr-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 1.82.49 3.53 1.34 5L2 22l5.24-1.31C8.68 21.43 10.28 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+              </svg>
+              个人微信交流
+            </div>
+            <p class="qr-desc">
+              欢迎提交使用反馈、Bug 交流、定制音效或探讨技术合作。
+            </p>
+            <span class="qr-hint">扫码添加好友（请备注：Keyper）</span>
+          </div>
+        </div>
+
+        <div class="author-links-bar">
+          <a href="https://blog.yibi.host/" target="_blank" class="author-link-btn">
+            <span>🌐</span>
+            <span>个人博客 (blog.yibi.host)</span>
+          </a>
+          <a href="https://github.com/OrangeSAM" target="_blank" class="author-link-btn">
+            <svg height="15" width="15" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+            </svg>
+            <span>GitHub @OrangeSAM</span>
+          </a>
+          <a href="mailto:amazing_sam@outlook.com" class="author-link-btn">
+            <span>✉️</span>
+            <span>联系邮箱 (amazing_sam@outlook.com)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container footer-content">
       <div>
-        <p>© 2026 <strong>Keyper</strong>. Crafted with precision for macOS enthusiasts.</p>
+        <p>© 2026 <strong>Keyper</strong>. Crafted with precision by <a href="https://blog.yibi.host" target="_blank" style="color: #f8fafc; font-weight: 600; text-decoration: none;">刘一笔 (OrangeSAM)</a>.</p>
         <p style="font-size: 11px; margin-top: 4px; color: var(--text-muted);">
-          致敬原始 Tickeys 项目 · 基于 Swift + SwiftUI + CoreAudio 原生重写
+          致敬原始 Tickeys 项目 · 基于 Swift + SwiftUI + CoreAudio 原生重写 · 完全开源免费
         </p>
       </div>
 
       <div class="footer-links">
+        <a href="#author" class="footer-link">关于作者</a>
+        <a href="https://blog.yibi.host/" target="_blank" class="footer-link">个人博客</a>
         <a href="https://github.com/OrangeSAM/Keyper" class="footer-link">GitHub 仓库</a>
         <a href="https://github.com/OrangeSAM/Keyper/releases" class="footer-link">发布日志</a>
         <a href="https://github.com/OrangeSAM/Keyper/blob/main/LICENSE" class="footer-link">MIT 协议</a>
@@ -462,6 +692,9 @@
         <a href="https://github.com/OrangeSAM/Keyper/releases/download/v1.0.1/Keyper-1.0.1.dmg" class="btn-primary" style="width: 100%; justify-content: center;">
           立即下载并安装至 Mac
         </a>
+        <p style="font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 12px;">
+          Crafted with ❤️ by <a href="https://blog.yibi.host" target="_blank" style="color: #6366f1; text-decoration: underline;">刘一笔 (OrangeSAM)</a> · 关注微信公众号「刘一笔」
+        </p>
       </div>
     </div>
   </div>

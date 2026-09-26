@@ -103,6 +103,15 @@ open Keyper.app
 
 ---
 
+## 👨‍💻 关于作者与交流 / Author & Community
+
+- **作者**：刘一笔 ([@OrangeSAM](https://github.com/OrangeSAM))
+- **个人博客**：[blog.yibi.host](https://blog.yibi.host/)
+- **微信公众号**：**「刘一笔」**（微信搜索关注，深度分享独立开发手记、技术实践与生活思考）
+- **微信交流**：可前往官网 [keyper.yibi.host/#author](https://keyper.yibi.host/#author) 扫码添加个人微信（备注 `Keyper`），欢迎交流体验、反馈 Bug 或推荐新声学方案！
+
+---
+
 ## 🤝 致敬与鸣谢 / Acknowledgements
 
 - 感谢原版 [yingDev/Tickeys](https://github.com/yingDev/Tickeys) 带来的灵感与经典敲击音效采样。
@@ -111,5 +120,6 @@ open Keyper.app
 ---
 
 <div align="center">
-Made with ❤️ by <a href="https://github.com/OrangeSAM">OrangeSAM</a>
+Made with ❤️ by <a href="https://blog.yibi.host">刘一笔 (OrangeSAM)</a>
 </div>
+
