@@ -9,6 +9,8 @@
 [![Swift](https://img.shields.io/badge/Swift-5.9%2B-F05138?style=flat-square&logo=swift)](https://swift.org)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Apple%20Silicon%20%7C%20Intel-success?style=flat-square)](#)
+[![Downloads](https://img.shields.io/github/downloads/OrangeSAM/Keyper/total?style=flat-square&color=2563eb&logo=github)](https://github.com/OrangeSAM/Keyper/releases)
+
 
 [English](#features) | [简体中文](#功能特性) | [🌐 在线交互试玩 / Live Demo](https://keyper.yibi.host/) | [安装指南](#安装指南--installation) | [快速上手](#快捷暗号--shortcut)
 

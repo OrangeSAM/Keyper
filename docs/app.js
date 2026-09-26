@@ -273,4 +273,69 @@ document.addEventListener('DOMContentLoaded', async () => {
       triggerEasterEgg();
     });
   }
+
+  // ==========================================================================
+  // Analytics & Event Tracking Engine
+  // Supports: GA4 (gtag), Umami, 百度统计 (_hmt), and local telemetry
+  // ==========================================================================
+  window.KeyperAnalytics = {
+    track: function(eventName, params = {}) {
+      // 1. Google Analytics 4 (gtag)
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', eventName, params);
+      }
+      // 2. Umami Analytics
+      if (window.umami && typeof window.umami.track === 'function') {
+        window.umami.track(eventName, params);
+      }
+      // 3. 百度统计 (_hmt)
+      if (window._hmt && typeof window._hmt.push === 'function') {
+        window._hmt.push(['_trackEvent', params.category || 'Interaction', eventName, params.label || '']);
+      }
+      // Debug log in dev mode
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('[Analytics Event]', eventName, params);
+      }
+    }
+  };
+
+  // Track all download clicks automatically
+  document.querySelectorAll('a[href$=".dmg"], a[href$=".pkg"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('href');
+      const isDmg = href.endsWith('.dmg');
+      const fileType = isDmg ? 'DMG' : 'PKG';
+      const section = link.closest('.hero') ? 'Hero' : (link.closest('.cta-section') ? 'CTA' : 'Modal');
+
+      window.KeyperAnalytics.track('download_click', {
+        category: 'Download',
+        file_type: fileType,
+        source_section: section,
+        url: href
+      });
+    });
+  });
+
+  // Track GitHub repository clicks
+  document.querySelectorAll('a[href*="github.com/OrangeSAM/Keyper"]').forEach(link => {
+    if (!link.getAttribute('href').includes('/releases/download/')) {
+      link.addEventListener('click', () => {
+        window.KeyperAnalytics.track('github_repo_click', {
+          category: 'Engagement',
+          position: link.closest('header') ? 'Navbar' : (link.closest('.footer') ? 'Footer' : 'Body')
+        });
+      });
+    }
+  });
+
+  // Track sound scheme switches
+  const originalSetScheme = engine.setScheme.bind(engine);
+  engine.setScheme = async function(schemeName) {
+    window.KeyperAnalytics.track('scheme_switch', {
+      category: 'AudioSimulator',
+      scheme_name: schemeName
+    });
+    return originalSetScheme(schemeName);
+  };
 });
+
